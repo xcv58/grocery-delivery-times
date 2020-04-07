@@ -1,0 +1,9 @@
+node_modules
+.nyc_output
+build
+build.zip
+secrets.*.js
+*.lcov
+coverage
+yarn-error.log
+.env
