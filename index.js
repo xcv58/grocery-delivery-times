@@ -4,15 +4,14 @@ console.log({ isProd })
 
 const puppeteer = require(isProd ? 'puppeteer-core' : 'puppeteer')
 const chrome = isProd ? require('chrome-aws-lambda') : {
-    // The costco link doesn't work with headless mode
-    headless: false,
+    headless: process.env.HEADLESS !== 'false'
 }
 
 const ACCOUNT = process.env.COSTCO_ACCOUNT
 const PASSWORD = process.env.COSTCO_PASSWORD
 
 const fillForm = async (page, selector, content, BCount = 0) => {
-    console.log('Fill form for:', selector)
+    console.log('Try to fill form for:', selector)
     const element = await page.waitForSelector(selector)
     for (let i = 0; i < BCount; i++) {
         await element.press('Backspace');
@@ -21,7 +20,7 @@ const fillForm = async (page, selector, content, BCount = 0) => {
 }
 
 const click = async (page, selector) => {
-    console.log('Click for:', selector)
+    console.log('Try to click for:', selector)
     await page.waitForSelector(selector)
     const button = await page.$(selector)
     return await button.click()
@@ -31,6 +30,7 @@ async function init(zip = '14228') {
     console.log('Check delivery time for zip:', zip)
     const browser = await puppeteer.launch(chrome)
     const page = await browser.newPage()
+    await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36')
     console.log('Open costco instacart page');
     await page.goto('https://www.costco.com/logon-instacart')
     // console.log('wait for 5 seconds');
