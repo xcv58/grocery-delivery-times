@@ -1,11 +1,15 @@
 {
   "name": "grocery-delivery",
   "version": "0.0.1",
-  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=development node index.js"
+  },
   "author": "xcv58 <i@xcv58.com>",
   "license": "MIT",
   "dependencies": {
     "chrome-aws-lambda": "^2.1.1",
+    "dotenv": "^8.2.0",
+    "puppeteer": "^2.1.1",
     "puppeteer-core": "^2.1.1"
   }
 }
