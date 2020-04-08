@@ -17,6 +17,6 @@ module.exports = async function (req, res) {
   const { file } = await costco(browser, zip, { saveScreenshot: false })
   res.statusCode = 200
   res.setHeader('Content-Type', `image/png`)
-  res.setHeader('Cache-Control', 'max-age=300, immutable')
+  res.setHeader('Cache-Control', 'max-age=600, immutable')
   res.end(file)
 }
