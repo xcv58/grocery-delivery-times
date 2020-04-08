@@ -18,10 +18,10 @@ module.exports = async function (req, res) {
     saveScreenshot: false,
   })
   res.statusCode = 200
-  res.setHeader('Content-Type', `application/json`)
   res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate')
-  res.end({
+  res.json({
     date: new Date().toISOString(),
+    file,
     text,
     hasSlot,
   })
