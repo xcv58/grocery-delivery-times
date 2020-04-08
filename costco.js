@@ -64,7 +64,7 @@ async function costco(
   await page.waitFor(1000)
 
   while (!(await page.$($seeTimes))) {
-    await page.reload()
+    await Promise.all([page.waitForNavigation(), page.reload()])
     await page.waitFor(1000)
   }
 
