@@ -16,7 +16,7 @@ const COSTCO_LINK = 'https://www.costco.com/logon-instacart'
 const $changeZipButton =
   'div[style="height: 100%; position: relative;"][data-radium="true"] button[data-radium="true"]'
 const $postalCodeInput = 'input[name="postal_code"]'
-const $seeTimes = 'span[title="See delivery times"]'
+const $seeTimes = '*[type="button"][href="/costco/info?tab=delivery"]'
 const $postalCodeSubmit = '.addressPickerModal div button'
 
 const hasTimeSlot = (text) => !text.includes('No delivery times available')
@@ -40,8 +40,6 @@ async function costco(
     page.waitForNavigation(),
     click(page, 'input[value="Sign In"]'),
   ])
-  log.debug('wait for 5 second')
-  await page.waitFor(5000)
 
   while (true) {
     await click(page, $changeZipButton)
@@ -72,12 +70,13 @@ async function costco(
     '.react-tabs__tab-panel.react-tabs__tab-panel--selected > .module-renderer'
   )
   let text = await popup.evaluate((node) => node.innerText)
+  let innerHTML = await popup.evaluate((node) => node.innerHTML)
   while (text === '') {
     log.debug('wait 1 second')
     await page.waitFor(1000)
     text = await popup.evaluate((node) => node.innerText)
   }
-  log.debug({ text })
+  log.debug({ text, innerHTML })
   log.debug('Save screenshot')
   const file = await popup.screenshot({
     path: saveScreenshot && path,
