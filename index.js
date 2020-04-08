@@ -8,14 +8,19 @@ const puppeteer = require(isProd ? 'puppeteer-core' : 'puppeteer')
 const chrome = isProd ? require('chrome-aws-lambda') : {
   headless: process.env.HEADLESS !== 'false'
 }
-
 const log = require('loglevel')
+const loglevelMessagePrefix = require('loglevel-message-prefix');
 
-if (isProd) {
-  log.setLevel('INFO')
-} else {
-  log.setLevel('DEBUG')
-}
+loglevelMessagePrefix(log, {
+  prefixes: ['timestamp', 'level'],
+  prefixFormat: '%p:',
+  options: {
+    timestamp: {
+    hour12: false,
+    locale: 'en-us'
+    }
+  }
+})
 
 const getBrowser = async () => {
   log.debug('init browser');

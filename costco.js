@@ -1,5 +1,5 @@
 const log = require('loglevel')
-const { userAgent, fillForm, click, getNewPage, notify } = require('./util')
+const { userAgent, fillForm, click, getNewPage, notify, getDateTime } = require('./util')
 
 const ACCOUNT = process.env.COSTCO_ACCOUNT
 const PASSWORD = process.env.COSTCO_PASSWORD
@@ -16,7 +16,7 @@ async function costco(browser, zip) {
   if (!browser || !zip) {
     log.error('Invalid costco calls:', { browser, zip })
   }
-  log.info('Check Costco delivery time for zip:', zip)
+  log.info('Costco: check delivery time for zip:', zip)
   const page = await getNewPage(browser)
   log.debug('Open costco instacart page');
   await page.goto(COSTCO_LINK)
@@ -59,12 +59,16 @@ async function costco(browser, zip) {
   log.debug('Save screenshot');
   const file = await popup.screenshot({ path, type: 'png' })
   await page.close()
-  if (hasTimeSlot(text)) {
+  const hasSlot = hasTimeSlot(text)
+  if (hasSlot) {
     notify({
       title: `Found Costco Delivery Times`,
       message: `Found Costco time slot for ${zip}, click to open Costco delivery website`,
       open: COSTCO_LINK,
     })
+    log.info(`Costco: find delivery time for ${zip}`)
+  } else {
+    log.info(`Costco: find no delivery time for ${zip}`)
   }
   return { hasSlot, text }
 }

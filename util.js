@@ -38,9 +38,12 @@ const notify = ({
   })
 }
 
+const getDateTime = () => new Date().toLocaleString()
+
 module.exports = {
   notify,
   fillForm,
   click,
-  getNewPage
+  getNewPage,
+  getDateTime
 }
