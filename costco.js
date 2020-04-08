@@ -24,7 +24,7 @@ const hasTimeSlot = (text) => !text.includes('No delivery times available')
 async function costco(
   browser,
   zip,
-  { account = ACCOUNT, password = PASSWORD }
+  { account = ACCOUNT, password = PASSWORD, saveScreenshot = true }
 ) {
   if (!browser || !zip) {
     log.error('Invalid costco calls:', { browser, zip })
@@ -35,7 +35,11 @@ async function costco(
   await page.goto(COSTCO_LINK)
   await fillForm(page, '#logonId', account)
   await fillForm(page, '#logonPassword', password)
-  await click(page, 'input[value="Sign In"]')
+
+  await Promise.all([
+    page.waitForNavigation(),
+    click(page, 'input[value="Sign In"]'),
+  ])
   log.debug('wait for 5 second')
   await page.waitFor(5000)
 
@@ -75,7 +79,10 @@ async function costco(
   }
   log.debug({ text })
   log.debug('Save screenshot')
-  const file = await popup.screenshot({ path, type: 'png' })
+  const file = await popup.screenshot({
+    path: saveScreenshot && path,
+    type: 'png',
+  })
   await page.close()
   const hasSlot = hasTimeSlot(text)
   if (hasSlot) {
@@ -88,7 +95,7 @@ async function costco(
   } else {
     log.info(`Costco: find no delivery time for ${zip}`)
   }
-  return { hasSlot, text }
+  return { hasSlot, text, file }
 }
 
 module.exports = costco

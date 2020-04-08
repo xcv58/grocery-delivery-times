@@ -1,26 +1,22 @@
 const { parse } = require('url')
-// const getScreenshot = require('../screenshot');
-const getScreenshot = require('../costco')
-
-// module.exports = async function (req, res) {
-//     const { pathname = '/', query = {} } = parse(req.url, true);
-//     const { type = 'png' } = query; // png or jpeg
-//     let url = pathname.slice(1);
-//     if (!url.startsWith('http')) {
-//         url = 'https://' + url; // add protocol if missing
-//     }
-//     const file = await getScreenshot(url, type);
-//     res.statusCode = 200;
-//     res.setHeader('Content-Type', `image/${type}`);
-//     res.end(file);
-// };
+const log = require('loglevel')
+const puppeteer = require('puppeteer-core')
+const chrome = require('chrome-aws-lambda')
+const costco = require('../costco')
 
 module.exports = async function (req, res) {
-  const { pathname = '/', query = {} } = parse(req.url, true)
-  const { type = 'png' } = query // png or jpeg
+  log.setLevel('DEBUG')
+  const browser = await puppeteer.launch({
+    dumpio: true,
+    args: chrome.args,
+    executablePath: await chrome.executablePath,
+    headless: chrome.headless,
+  })
+  const { pathname = '/' } = parse(req.url, true)
   let zip = pathname.slice(1)
-  const file = await getScreenshot(zip)
+  const { file } = await costco(browser, zip, { saveScreenshot: false })
   res.statusCode = 200
-  res.setHeader('Content-Type', `image/${type}`)
+  res.setHeader('Content-Type', `image/png`)
+  res.setHeader('Cache-Control', 'max-age=300, immutable')
   res.end(file)
 }
