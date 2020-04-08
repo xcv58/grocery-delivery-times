@@ -6,8 +6,16 @@ const chrome = isProd ? require('chrome-aws-lambda') : {
   headless: process.env.HEADLESS !== 'false'
 }
 
+const log = require('loglevel')
+
+if (isProd) {
+  log.setLevel('INFO')
+} else {
+  log.setLevel('DEBUG')
+}
+
 const init = async () => {
-  console.log('init browser');
+  log.debug('init browser');
   const browser = isProd ? await puppeteer.launch({
     dumpio: true,
     args: chrome.args,
@@ -16,7 +24,7 @@ const init = async () => {
   }) : await puppeteer.launch(chrome)
 
   const costcoRes = await costco(browser, '94102')
-  console.log(costcoRes);
+  log.info(costcoRes);
   await browser.close()
 }
 

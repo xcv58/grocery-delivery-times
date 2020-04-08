@@ -1,3 +1,4 @@
+const log = require('loglevel')
 const { userAgent, fillForm, click, getNewPage } = require('./util')
 
 const ACCOUNT = process.env.COSTCO_ACCOUNT
@@ -5,15 +6,17 @@ const PASSWORD = process.env.COSTCO_PASSWORD
 
 const $postalCodeInput = 'input[name="postal_code"]'
 const $seeTimes = 'span[title="See delivery times"]'
+const $postalCodeSubmit = '.addressPickerModal div button'
+
 const hasTimeSlot = (text) => !text.includes('No delivery times available')
 
 async function costco(browser, zip) {
   if (!browser || !zip) {
-    console.log('Invalid costco calls:', { browser, zip })
+    log.error('Invalid costco calls:', { browser, zip })
   }
-  console.log('Check Costco delivery time for zip:', zip)
+  log.info('Check Costco delivery time for zip:', zip)
   const page = await getNewPage(browser)
-  console.log('Open costco instacart page');
+  log.debug('Open costco instacart page');
   await page.goto('https://www.costco.com/logon-instacart')
   await fillForm(page, '#logonId', ACCOUNT)
   await fillForm(page, '#logonPassword', PASSWORD)
@@ -22,14 +25,15 @@ async function costco(browser, zip) {
   while (true) {
     await click(page, 'div[style="height: 100%; position: relative;"][data-radium="true"] button[data-radium="true"]')
     const postalCodeInput =  await page.$($postalCodeInput)
-    if (postalCodeInput) {
+    const buttons = await page.$$($postalCodeSubmit)
+    if (postalCodeInput && buttons && buttons.length === 3) {
       break
     }
     await page.waitFor(1000)
   }
 
   await fillForm(page, $postalCodeInput, zip, 5)
-  const submitButton = (await page.$$('.addressPickerModal div button'))[2]
+  const submitButton = (await page.$$($postalCodeSubmit))[2]
   await submitButton.click()
 
   await page.waitFor(1000)
@@ -45,18 +49,18 @@ async function costco(browser, zip) {
   const popup = await page.waitForSelector('.react-tabs__tab-panel.react-tabs__tab-panel--selected > .module-renderer')
   let text = await popup.evaluate(node => node.innerText)
   while (text === '') {
-    console.log('wait 1 second')
+    log.debug('wait 1 second')
     await page.waitFor(1000)
     text = await popup.evaluate(node => node.innerText)
   }
-  console.log({ text });
-  console.log('Save screenshot');
+  log.debug({ text });
+  log.debug('Save screenshot');
   const file = await popup.screenshot({ path, type: 'png' })
   await page.close()
   return {
     hasSlot: hasTimeSlot(text),
-    text,
-    file
+    // file,
+    text
   }
 }
 
