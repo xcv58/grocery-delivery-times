@@ -1,5 +1,12 @@
 const log = require('loglevel')
-const { userAgent, fillForm, click, getNewPage, notify, getDateTime } = require('./util')
+const {
+  userAgent,
+  fillForm,
+  click,
+  getNewPage,
+  notify,
+  getDateTime,
+} = require('./util')
 
 const ACCOUNT = process.env.COSTCO_ACCOUNT
 const PASSWORD = process.env.COSTCO_PASSWORD
@@ -18,15 +25,18 @@ async function costco(browser, zip) {
   }
   log.info('Costco: check delivery time for zip:', zip)
   const page = await getNewPage(browser)
-  log.debug('Open costco instacart page');
+  log.debug('Open costco instacart page')
   await page.goto(COSTCO_LINK)
   await fillForm(page, '#logonId', ACCOUNT)
   await fillForm(page, '#logonPassword', PASSWORD)
   await click(page, 'input[value="Sign In"]')
 
   while (true) {
-    await click(page, 'div[style="height: 100%; position: relative;"][data-radium="true"] button[data-radium="true"]')
-    const postalCodeInput =  await page.$($postalCodeInput)
+    await click(
+      page,
+      'div[style="height: 100%; position: relative;"][data-radium="true"] button[data-radium="true"]'
+    )
+    const postalCodeInput = await page.$($postalCodeInput)
     const buttons = await page.$$($postalCodeSubmit)
     if (postalCodeInput && buttons && buttons.length === 3) {
       break
@@ -48,15 +58,17 @@ async function costco(browser, zip) {
   await click(page, $seeTimes)
 
   const path = `${zip} - ${new Date().toISOString()}.png`
-  const popup = await page.waitForSelector('.react-tabs__tab-panel.react-tabs__tab-panel--selected > .module-renderer')
-  let text = await popup.evaluate(node => node.innerText)
+  const popup = await page.waitForSelector(
+    '.react-tabs__tab-panel.react-tabs__tab-panel--selected > .module-renderer'
+  )
+  let text = await popup.evaluate((node) => node.innerText)
   while (text === '') {
     log.debug('wait 1 second')
     await page.waitFor(1000)
-    text = await popup.evaluate(node => node.innerText)
+    text = await popup.evaluate((node) => node.innerText)
   }
-  log.debug({ text });
-  log.debug('Save screenshot');
+  log.debug({ text })
+  log.debug('Save screenshot')
   const file = await popup.screenshot({ path, type: 'png' })
   await page.close()
   const hasSlot = hasTimeSlot(text)
