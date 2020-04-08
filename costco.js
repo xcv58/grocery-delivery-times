@@ -61,7 +61,7 @@ async function costco(
 
   await click(page, $seeTimes)
 
-  const path = `${zip} - ${new Date().toISOString()}.png`
+  const path = `Costco - ${zip} - ${new Date().toISOString()}.png`
   const popup = await page.waitForSelector(
     '.react-tabs__tab-panel.react-tabs__tab-panel--selected > .module-renderer'
   )

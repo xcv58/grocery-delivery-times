@@ -97,6 +97,9 @@ const argv = yargs
           }
         },
         null,
+        true,
+        null,
+        null,
         true
       )
       job.start()
