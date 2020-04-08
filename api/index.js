@@ -21,8 +21,8 @@ module.exports = async function (req, res) {
   res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate')
   res.json({
     date: new Date().toISOString(),
-    file,
     text,
     hasSlot,
+    // file,
   })
 }
