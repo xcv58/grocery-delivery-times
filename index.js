@@ -55,7 +55,27 @@ const argv = yargs
     () => {},
     (argv) => {
       const websites = [...new Set(argv.websites)]
-      const { debug, interval, zip, costco_user, costco_password } = argv
+      const {
+        debug,
+        interval,
+        zip,
+        costco_user,
+        costco_password,
+        runOnInit,
+      } = argv
+      if (debug) {
+        log.setLevel('DEBUG')
+      } else {
+        log.setLevel('INFO')
+      }
+      log.debug('Options:', {
+        debug,
+        interval,
+        zip,
+        costco_user,
+        costco_password,
+        runOnInit,
+      })
       if (interval <= 0 || interval > 500 || isNaN(interval)) {
         yargs.showHelp()
         log.error(
@@ -67,11 +87,6 @@ const argv = yargs
         yargs.showHelp()
         log.error(`Invalid zip code: ${zip}.`)
         return
-      }
-      if (debug) {
-        log.setLevel('DEBUG')
-      } else {
-        log.setLevel('INFO')
       }
       log.info(
         'watching websites:',
@@ -100,7 +115,7 @@ const argv = yargs
         true,
         null,
         null,
-        true
+        runOnInit
       )
       job.start()
     }
@@ -125,6 +140,10 @@ const argv = yargs
     demandOption: true,
     describe: 'The zip code to watch',
     type: 'string',
+  })
+  .option('runOnInit', {
+    default: false,
+    type: 'boolean',
   })
   .option('debug', {
     alias: 'd',
