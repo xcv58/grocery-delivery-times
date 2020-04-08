@@ -19,7 +19,11 @@ const $postalCodeSubmit = '.addressPickerModal div button'
 
 const hasTimeSlot = (text) => !text.includes('No delivery times available')
 
-async function costco(browser, zip) {
+async function costco(
+  browser,
+  zip,
+  { account = ACCOUNT, password = PASSWORD }
+) {
   if (!browser || !zip) {
     log.error('Invalid costco calls:', { browser, zip })
   }
@@ -27,8 +31,8 @@ async function costco(browser, zip) {
   const page = await getNewPage(browser)
   log.debug('Open costco instacart page')
   await page.goto(COSTCO_LINK)
-  await fillForm(page, '#logonId', ACCOUNT)
-  await fillForm(page, '#logonPassword', PASSWORD)
+  await fillForm(page, '#logonId', account)
+  await fillForm(page, '#logonPassword', password)
   await click(page, 'input[value="Sign In"]')
 
   while (true) {

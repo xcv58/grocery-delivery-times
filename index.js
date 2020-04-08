@@ -38,6 +38,10 @@ const getBrowser = async () => {
   return browser
 }
 
+const hasEnvForCostco = Boolean(
+  process.env.COSTCO_ACCOUNT && process.env.COSTCO_PASSWORD
+)
+
 const WEBSITES_HANDLER = {
   costco,
 }
@@ -51,7 +55,7 @@ const argv = yargs
     () => {},
     (argv) => {
       const websites = [...new Set(argv.websites)]
-      const { debug, interval, zip } = argv
+      const { debug, interval, zip, costco_user, costco_password } = argv
       if (interval <= 0 || interval > 500 || isNaN(interval)) {
         yargs.showHelp()
         log.error(
@@ -80,7 +84,12 @@ const argv = yargs
           try {
             const browser = await getBrowser()
             await Promise.all(
-              websites.map((website) => WEBSITES_HANDLER[website](browser, zip))
+              websites.map((website) =>
+                WEBSITES_HANDLER[website](browser, zip, {
+                  account: costco_user,
+                  password: costco_password,
+                })
+              )
             )
             await browser.close()
           } catch (e) {
@@ -118,6 +127,16 @@ const argv = yargs
     alias: 'd',
     default: false,
     type: 'boolean',
+  })
+  .option('costco_user', {
+    alias: 'cu',
+    demandOption: !hasEnvForCostco,
+    type: 'string',
+  })
+  .option('costco_password', {
+    alias: 'cp',
+    demandOption: !hasEnvForCostco,
+    type: 'string',
   })
   .help()
   .showHelpOnFail(true).argv
