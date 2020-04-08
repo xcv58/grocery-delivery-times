@@ -21,7 +21,7 @@ module.exports = async function (req, res) {
   res.setHeader('Content-Type', `application/json`)
   res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate')
   res.end({
-    date: new Date(),
+    date: new Date().toISOString(),
     text,
     hasSlot,
   })
