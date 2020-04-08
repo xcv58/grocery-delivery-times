@@ -44,11 +44,13 @@ const argv = yargs
 .command('$0', 'watch the websites', () => {}, (argv) => {
   const websites = [...new Set(argv.websites)]
   const { debug, interval, zip } = argv
-  if (interval <= 0 || interval > 500) {
+  if (interval <= 0 || interval > 500 || isNaN(interval)) {
+    yargs.showHelp()
     log.error(`The input interval "${interval}" is invalid, please use interval (minutes) from 1 to 500.`)
     return
   }
   if (!zipCodePattern.test(zip)) {
+    yargs.showHelp()
     log.error(`Invalid zip code: ${zip}.`)
     return
   }
@@ -98,7 +100,6 @@ const argv = yargs
   default: false,
   type: 'boolean'
 })
-.help('help')
-.help('h')
+.help()
 .showHelpOnFail(true)
 .argv

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "NODE_ENV=development node index.js",
-    "start": "NODE_ENV=development node index.js"
+    "start": "node index.js"
   },
   "author": "xcv58 <i@xcv58.com>",
   "license": "MIT",
