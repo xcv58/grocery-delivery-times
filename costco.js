@@ -6,6 +6,7 @@ const {
   getNewPage,
   notify,
   getDateTime,
+  isValidZip,
 } = require('./util')
 
 const ACCOUNT = process.env.COSTCO_ACCOUNT
@@ -28,6 +29,10 @@ async function costco(
 ) {
   if (!browser || !zip) {
     log.error('Invalid costco calls:', { browser, zip })
+  }
+  if (!isValidZip(zip)) {
+    log.error(`Invalid zip code: "${zip}`)
+    throw new Error(`Invalid zip code: "${zip}`)
   }
   log.info('Costco: check delivery time for zip:', zip)
   const page = await getNewPage(browser)
@@ -81,6 +86,7 @@ async function costco(
   const file = await popup.screenshot({
     path: saveScreenshot && path,
     type: 'png',
+    encoding: 'base64',
   })
   await page.close()
   const hasSlot = hasTimeSlot(text)

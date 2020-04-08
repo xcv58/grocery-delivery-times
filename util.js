@@ -39,10 +39,15 @@ const notify = ({ title, message, open }) => {
 
 const getDateTime = () => new Date().toLocaleString()
 
+const zipCodePattern = /^\d{5}$|^\d{5}-\d{4}$/
+
+const isValidZip = (zip) => Boolean(zipCodePattern.test(zip))
+
 module.exports = {
   notify,
   fillForm,
   click,
   getNewPage,
   getDateTime,
+  isValidZip,
 }

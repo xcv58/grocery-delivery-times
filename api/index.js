@@ -14,9 +14,16 @@ module.exports = async function (req, res) {
   })
   const { pathname = '/' } = parse(req.url, true)
   let zip = pathname.slice(1)
-  const { file } = await costco(browser, zip, { saveScreenshot: false })
+  const { file, text, hasSlot } = await costco(browser, zip, {
+    saveScreenshot: false,
+  })
   res.statusCode = 200
-  res.setHeader('Content-Type', `image/png`)
+  res.setHeader('Content-Type', `application/json`)
   res.setHeader('Cache-Control', 'max-age=600, immutable')
-  res.end(file)
+  res.end({
+    date: new Date(),
+    text,
+    file,
+    hasSlot,
+  })
 }

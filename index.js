@@ -1,7 +1,7 @@
 require('dotenv').config()
 const CronJob = require('cron').CronJob
 const yargs = require('yargs')
-const { notify } = require('./util')
+const { notify, isValidZip } = require('./util')
 const isProd = process.env.NODE_ENV === 'production'
 const costco = require('./costco')
 const puppeteer = require(isProd ? 'puppeteer-core' : 'puppeteer')
@@ -46,8 +46,6 @@ const WEBSITES_HANDLER = {
   costco,
 }
 
-const zipCodePattern = /^\d{5}$|^\d{5}-\d{4}$/
-
 const argv = yargs
   .command(
     '$0',
@@ -84,7 +82,7 @@ const argv = yargs
         )
         return
       }
-      if (!zipCodePattern.test(zip)) {
+      if (!isValidZip(zip)) {
         yargs.showHelp()
         log.error(`Invalid zip code: ${zip}.`)
         return
