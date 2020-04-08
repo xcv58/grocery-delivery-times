@@ -51,7 +51,7 @@ const zipCodePattern = /^\d{5}$|^\d{5}-\d{4}$/
 const argv = yargs
   .command(
     '$0',
-    'watch the websites',
+    'Watch grocery websites for delivery time',
     () => {},
     (argv) => {
       const websites = [...new Set(argv.websites)]
