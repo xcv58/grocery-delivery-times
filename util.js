@@ -1,3 +1,4 @@
+const notifier = require('node-notifier')
 const log = require('loglevel')
 
 const userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4100.3 Safari/537.36'
@@ -26,8 +27,19 @@ const getNewPage = async (browser) => {
   return page
 }
 
+const notify = ({
+  title, message, open
+}) => {
+  notifier.notify({
+    title,
+    message,
+    open,
+    sound: true
+  })
+}
+
 module.exports = {
-  userAgent,
+  notify,
   fillForm,
   click,
   getNewPage

@@ -1,4 +1,5 @@
 require('dotenv').config()
+const { notify } = require('./util')
 const isProd = process.env.NODE_ENV === 'production'
 const costco = require('./costco');
 const puppeteer = require(isProd ? 'puppeteer-core' : 'puppeteer')
@@ -25,6 +26,9 @@ const init = async () => {
 
   const costcoRes = await costco(browser, '94102')
   log.info(costcoRes);
+  if (costcoRes.hasSlot) {
+    notify(costcoRes)
+  }
   await browser.close()
 }
 

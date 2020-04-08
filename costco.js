@@ -4,6 +4,8 @@ const { userAgent, fillForm, click, getNewPage } = require('./util')
 const ACCOUNT = process.env.COSTCO_ACCOUNT
 const PASSWORD = process.env.COSTCO_PASSWORD
 
+const COSTCO_LINK = 'https://www.costco.com/logon-instacart'
+
 const $postalCodeInput = 'input[name="postal_code"]'
 const $seeTimes = 'span[title="See delivery times"]'
 const $postalCodeSubmit = '.addressPickerModal div button'
@@ -17,7 +19,7 @@ async function costco(browser, zip) {
   log.info('Check Costco delivery time for zip:', zip)
   const page = await getNewPage(browser)
   log.debug('Open costco instacart page');
-  await page.goto('https://www.costco.com/logon-instacart')
+  await page.goto(COSTCO_LINK)
   await fillForm(page, '#logonId', ACCOUNT)
   await fillForm(page, '#logonPassword', PASSWORD)
   await click(page, 'input[value="Sign In"]')
@@ -60,7 +62,10 @@ async function costco(browser, zip) {
   return {
     hasSlot: hasTimeSlot(text),
     // file,
-    text
+    text,
+    title: `Found Costco Delivery Times`,
+    message: `Found Costco time slot for ${zip}, click to open Costco delivery website`,
+    open: COSTCO_LINK,
   }
 }
 
