@@ -13,6 +13,8 @@ const PASSWORD = process.env.COSTCO_PASSWORD
 
 const COSTCO_LINK = 'https://www.costco.com/logon-instacart'
 
+const $changeZipButton =
+  'div[style="height: 100%; position: relative;"][data-radium="true"] button[data-radium="true"]'
 const $postalCodeInput = 'input[name="postal_code"]'
 const $seeTimes = 'span[title="See delivery times"]'
 const $postalCodeSubmit = '.addressPickerModal div button'
@@ -34,17 +36,17 @@ async function costco(
   await fillForm(page, '#logonId', account)
   await fillForm(page, '#logonPassword', password)
   await click(page, 'input[value="Sign In"]')
+  log.debug('wait for 5 second')
+  await page.waitFor(5000)
 
   while (true) {
-    await click(
-      page,
-      'div[style="height: 100%; position: relative;"][data-radium="true"] button[data-radium="true"]'
-    )
+    await click(page, $changeZipButton)
     const postalCodeInput = await page.$($postalCodeInput)
     const buttons = await page.$$($postalCodeSubmit)
     if (postalCodeInput && buttons && buttons.length === 3) {
       break
     }
+    log.debug('wait for 1 second')
     await page.waitFor(1000)
   }
 

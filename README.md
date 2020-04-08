@@ -30,25 +30,27 @@ Options:
   --costco_user, --cu                                                   [string]
   --costco_password, --cp                                               [string]
   --help                   Show help                                   [boolean]
-
 ```
 
-Sample command to watch Costco for zip code `10001` every 45 minutes:
+Sample command to watch Costco for zipcode `10001` every 45 minutes:
 
 ```sh
 yarn start --costco_user xxx@xxx.com --costco_password 123456 -w costco -z 10001 -i 45
 ```
 
 The output:
-```
+
+```sh
 $ node index.js --costco_user xxx@xxx.com --costco_password 123456 -w costco -z 10001 -i 45
-4/7/2020 22:52:45 INFO: watching websites: [ 'costco' ] for zip: "10001" on every 45 minutes
-4/7/2020 22:52:46 INFO: Costco: check delivery time for zip: 10001
+4/7/2020 23:07:03 INFO: watching websites: [ 'costco' ] for zip: "10001" on every 10 minutes
+4/7/2020 23:07:04 INFO: Costco: check delivery time for zip: 10001
+4/7/2020 23:07:28 INFO: Costco: find no delivery time for 10001
 ```
 
 And it would send a system notification if find an available delivery time slot:
 
 ![image](https://user-images.githubusercontent.com/503123/78749305-d5bcf180-7922-11ea-9059-1a2b16a93e8e.png)
 
-## Devlopment
+## Development
+
 TODO
