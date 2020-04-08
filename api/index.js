@@ -13,7 +13,7 @@ module.exports = async function (req, res) {
     headless: chrome.headless,
   })
   const { pathname = '/' } = parse(req.url, true)
-  const zip = pathname.pop()
+  const zip = pathname.split('/').pop()
   const { file, text, hasSlot } = await costco(browser, zip, {
     saveScreenshot: false,
   })
