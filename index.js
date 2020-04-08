@@ -76,10 +76,11 @@ const argv = yargs
         costco_password,
         runOnInit,
       })
-      if (interval <= 0 || interval > 500 || isNaN(interval)) {
+      if (interval <= 0 || interval > 60 || isNaN(interval)) {
+        // TODO: need to translate minutes more than 60 to correct crontab.
         yargs.showHelp()
         log.error(
-          `The input interval "${interval}" is invalid, please use interval (minutes) from 1 to 500.`
+          `The input interval "${interval}" is invalid, please use interval (minutes) from 1 to 60.`
         )
         return
       }
