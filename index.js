@@ -130,13 +130,22 @@ const argv = yargs
   })
   .option('costco_user', {
     alias: 'cu',
-    demandOption: !hasEnvForCostco,
     type: 'string',
   })
   .option('costco_password', {
     alias: 'cp',
-    demandOption: !hasEnvForCostco,
     type: 'string',
+  })
+  .check(({ costco_password, costco_user, websites }) => {
+    if (websites.includes('costco')) {
+      if (hasEnvForCostco) {
+        return true
+      }
+      if (!costco_password || !costco_user) {
+        throw new Error('You must provide costco user & password!')
+      }
+    }
+    return true
   })
   .help()
   .showHelpOnFail(true).argv
