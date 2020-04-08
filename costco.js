@@ -1,5 +1,5 @@
 const log = require('loglevel')
-const { userAgent, fillForm, click, getNewPage } = require('./util')
+const { userAgent, fillForm, click, getNewPage, notify } = require('./util')
 
 const ACCOUNT = process.env.COSTCO_ACCOUNT
 const PASSWORD = process.env.COSTCO_PASSWORD
@@ -59,14 +59,14 @@ async function costco(browser, zip) {
   log.debug('Save screenshot');
   const file = await popup.screenshot({ path, type: 'png' })
   await page.close()
-  return {
-    hasSlot: hasTimeSlot(text),
-    // file,
-    text,
-    title: `Found Costco Delivery Times`,
-    message: `Found Costco time slot for ${zip}, click to open Costco delivery website`,
-    open: COSTCO_LINK,
+  if (hasTimeSlot(text)) {
+    notify({
+      title: `Found Costco Delivery Times`,
+      message: `Found Costco time slot for ${zip}, click to open Costco delivery website`,
+      open: COSTCO_LINK,
+    })
   }
+  return { hasSlot, text }
 }
 
 module.exports = costco
