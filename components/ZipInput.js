@@ -6,7 +6,7 @@ export default ({ zip = '' }) => {
   const [typed, setTyped] = useState(false)
   return (
     <form
-      className="w-full max-w-sm mx-auto"
+      className="w-full mx-auto"
       onSubmit={(e) => {
         e.preventDefault()
         if (value) {
@@ -16,7 +16,7 @@ export default ({ zip = '' }) => {
         }
       }}
     >
-      <div className="flex items-center py-2 border-b-2 border-gray-400 focus-within:border-blue-500 hover:border-blue-300">
+      <div className="flex items-center max-w-sm py-2 mx-auto border-b-2 border-gray-400 focus-within:border-blue-500 hover:border-blue-300">
         <input
           className="w-full px-2 py-1 mr-3 leading-tight text-gray-700 bg-transparent border-none appearance-none focus:outline-none"
           placeholder="Zip code"
