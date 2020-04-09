@@ -9,7 +9,7 @@ export default ({ zip }) => {
   if (error) return <div>{error.message}</div>
   if (!data) return <div>Loading...</div>
 
-  const { date, text, screnshot, hasSlot } = data
+  const { date, text, screenshot, hasSlot } = data
   return (
     <div className="w-64">
       <h2>Costco</h2>
@@ -17,7 +17,7 @@ export default ({ zip }) => {
       <div>{text}</div>
       {screenshot && (
         <img
-          src={`data:image/png;base64,${screnshot}`}
+          src={`data:image/png;base64,${screenshot}`}
           alt="costco screenshot"
         />
       )}
