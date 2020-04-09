@@ -34,6 +34,7 @@ const notify = ({ title, message, open }) => {
     message,
     open,
     sound: true,
+    timeout: false,
   })
 }
 
