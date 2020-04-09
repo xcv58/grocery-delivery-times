@@ -2,6 +2,8 @@
   "name": "grocery-delivery",
   "version": "0.0.1",
   "scripts": {
+    "next": "next",
+    "build": "next build",
     "dev": "NODE_ENV=development node index.js",
     "start": "node index.js"
   },
@@ -11,17 +13,25 @@
     "chrome-aws-lambda": "2.0.x",
     "cron": "^1.8.2",
     "dotenv": "^8.2.0",
+    "javascript-time-ago": "^2.0.7",
     "loglevel": "^1.6.7",
     "loglevel-message-prefix": "^3.0.0",
+    "next": "^9.3.4",
     "node-notifier": "^6.0.0",
     "puppeteer-core": "2.0.x",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "swr": "^0.2.0",
     "yargs": "^15.3.1"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^2.1.2",
     "husky": "^4.2.3",
+    "postcss-preset-env": "^6.7.0",
     "prettier": "2.0.4",
     "pretty-quick": "^2.0.1",
-    "puppeteer": "^2.1.1"
+    "puppeteer": "^2.1.1",
+    "tailwindcss": "^1.2.0"
   },
   "husky": {
     "hooks": {

@@ -94,7 +94,7 @@ async function costco(
   }
   log.debug({ text, innerHTML })
   log.debug('Save screenshot')
-  const file = await popup.screenshot({
+  const screenshot = await popup.screenshot({
     path: saveScreenshot && path,
     type: 'png',
     encoding: 'base64',
@@ -111,7 +111,7 @@ async function costco(
   } else {
     log.info(`Costco: find no delivery time for ${zip}`)
   }
-  return { hasSlot, text, file }
+  return { hasSlot, text, screenshot }
 }
 
 module.exports = costco
