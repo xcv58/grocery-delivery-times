@@ -47,14 +47,18 @@ async function costco(
   ])
 
   while (true) {
-    await click(page, $changeZipButton)
-    const postalCodeInput = await page.$($postalCodeInput)
-    const buttons = await page.$$($postalCodeSubmit)
-    if (postalCodeInput && buttons && buttons.length === 3) {
-      break
+    try {
+      await click(page, $changeZipButton)
+      const postalCodeInput = await page.$($postalCodeInput)
+      const buttons = await page.$$($postalCodeSubmit)
+      if (postalCodeInput && buttons && buttons.length === 3) {
+        break
+      }
+      log.debug('wait for 1 second')
+      await page.waitFor(1000)
+    } catch (e) {
+      log.error(e)
     }
-    log.debug('wait for 1 second')
-    await page.waitFor(1000)
   }
 
   await fillForm(page, $postalCodeInput, zip, 5)
@@ -63,9 +67,14 @@ async function costco(
 
   await page.waitFor(1000)
 
-  while (!(await page.$($seeTimes))) {
-    await Promise.all([page.waitForNavigation(), page.reload()])
-    await page.waitFor(1000)
+  while (true) {
+    try {
+      await page.$($seeTimes)
+      await Promise.all([page.waitForNavigation(), page.reload()])
+      await page.waitFor(1000)
+    } catch (e) {
+      log.error(e)
+    }
   }
 
   await click(page, $seeTimes)
