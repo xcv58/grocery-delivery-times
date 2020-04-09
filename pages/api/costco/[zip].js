@@ -22,7 +22,7 @@ export default async (req, res) => {
     })
   }
   const browser = await getBrowser()
-  const { file, text, hasSlot } = await costco(browser, zip, {
+  const { screenshot, text, hasSlot } = await costco(browser, zip, {
     saveScreenshot: false,
   })
   await browser.close()
@@ -33,5 +33,6 @@ export default async (req, res) => {
     text,
     zip,
     hasSlot,
+    screenshot,
   })
 }

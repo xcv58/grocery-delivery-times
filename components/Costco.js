@@ -9,12 +9,18 @@ export default ({ zip }) => {
   if (error) return <div>{error.message}</div>
   if (!data) return <div>Loading...</div>
 
-  const { date, text, hasSlot } = data
+  const { date, text, screnshot, hasSlot } = data
   return (
     <div className="w-64">
       <h2>Costco</h2>
       <div>Update {timeAgo.format(new Date(date))}</div>
       <div>{text}</div>
+      {screenshot && (
+        <img
+          src={`data:image/png;base64,${screnshot}`}
+          alt="costco screenshot"
+        />
+      )}
     </div>
   )
 }
