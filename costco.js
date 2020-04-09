@@ -25,7 +25,7 @@ const hasTimeSlot = (text) => !text.includes('No delivery times available')
 async function costco(
   browser,
   zip,
-  { account = ACCOUNT, password = PASSWORD, saveScreenshot = true }
+  { account = ACCOUNT, password = PASSWORD, saveScreenshot = false }
 ) {
   if (!browser || !zip) {
     log.error('Invalid costco calls:', { browser, zip })
