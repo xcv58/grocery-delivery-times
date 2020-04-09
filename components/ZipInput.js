@@ -3,35 +3,47 @@ import Router from 'next/router'
 
 export default ({ zip = '' }) => {
   const [value, setZip] = useState(zip)
-  const [typing, setTyping] = useState(false)
+  const [typed, setTyped] = useState(false)
   return (
-    <div className="flex items-center justify-center w-full">
-      <input
-        className="w-48 px-4 py-2 leading-normal bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:shadow-outline"
-        placeholder="zip code"
-        id="zip"
-        value={typing ? value : zip}
-        onChange={(e) => {
-          setZip(e.target.value)
-        }}
-        onKeyPress={(e) => {
-          if (e.key === 'Enter') {
-            Router.push('/[zip]', `/${value}`)
-          }
-        }}
-        onFocus={() => {
-          setZip(zip)
-          setTyping(true)
-        }}
-        onBlur={() => {
-          setZip('')
-          setTyping(false)
-        }}
-        name="zip"
-        type="text"
-        inputMode="numeric"
-        pattern="^(\?(^00000(|-0000))|(\d{5}(|-\d{4})))$"
-      />
-    </div>
+    <form
+      className="w-full max-w-sm mx-auto"
+      onSubmit={(e) => {
+        e.preventDefault()
+        if (value) {
+          Router.push('/[zip]', `/${value}`)
+        } else {
+          Router.push('/')
+        }
+      }}
+    >
+      <div className="flex items-center py-2 border-b-2 border-gray-400 focus-within:border-blue-500 hover:border-blue-300">
+        <input
+          className="w-full px-2 py-1 mr-3 leading-tight text-gray-700 bg-transparent border-none appearance-none focus:outline-none"
+          placeholder="Zip code"
+          id="zip"
+          value={typed ? value : zip}
+          onChange={(e) => {
+            setZip(e.target.value)
+          }}
+          onFocus={() => {
+            if (!typed) {
+              setTyped(true)
+              if (!value) {
+                setZip(zip)
+              }
+            }
+          }}
+          name="zip"
+          type="text"
+          inputMode="numeric"
+          pattern="^(\?(^00000(|-0000))|(\d{5}(|-\d{4})))$"
+        />
+        <input
+          type="submit"
+          value="Submit"
+          className="flex-shrink-0 px-2 py-1 text-sm text-white bg-blue-500 border-4 border-blue-500 rounded focus:shadow-outline focus:outline-none hover:bg-blue-700 hover:border-blue-700"
+        />
+      </div>
+    </form>
   )
 }
