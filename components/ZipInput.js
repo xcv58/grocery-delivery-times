@@ -19,8 +19,14 @@ export default ({ zip = '' }) => {
             Router.push('/[zip]', `/${value}`)
           }
         }}
-        onFocus={() => setTyping(true)}
-        onBlur={() => setTyping(false)}
+        onFocus={() => {
+          setZip(zip)
+          setTyping(true)
+        }}
+        onBlur={() => {
+          setZip('')
+          setTyping(false)
+        }}
         name="zip"
         type="text"
         inputMode="numeric"

@@ -2,6 +2,7 @@ import log from 'loglevel'
 import getBrowser from '../../../util/browser'
 import { isValidZip, isProd } from '../../../util/index'
 import costco from '../../../costco'
+import { COSTCO_DATA } from '../../../util/test_data'
 
 export default async (req, res) => {
   log.setLevel('DEBUG')
@@ -13,13 +14,7 @@ export default async (req, res) => {
     })
   }
   if (!isProd()) {
-    return res.json({
-      date: '2020-04-09T05:06:34.116Z',
-      text:
-        'No delivery times available\n\nRight now, all shoppers are busy and working hard to get to every order. Please check back later to see if deliveries are available.',
-      zip: '10024',
-      hasSlot: false,
-    })
+    return res.json(COSTCO_DATA)
   }
   const browser = await getBrowser()
   const { screenshot, text, hasSlot } = await costco(browser, zip, {
