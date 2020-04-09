@@ -3,10 +3,6 @@
   "github": {
     "enabled": true
   },
-  "routes": [
-    { "src": "/", "dest": "/public/index.html" },
-    { "src": "/api/(.*)", "dest": "/api/index.js" }
-  ],
   "env": {
     "COSTCO_ACCOUNT": "@costco_account",
     "COSTCO_PASSWORD": "@costco_passpord"

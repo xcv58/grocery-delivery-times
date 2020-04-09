@@ -2,6 +2,8 @@
   "name": "grocery-delivery",
   "version": "0.0.1",
   "scripts": {
+    "next": "next",
+    "build": "next build",
     "dev": "NODE_ENV=development node index.js",
     "start": "node index.js"
   },
@@ -13,8 +15,12 @@
     "dotenv": "^8.2.0",
     "loglevel": "^1.6.7",
     "loglevel-message-prefix": "^3.0.0",
+    "next": "^9.3.4",
     "node-notifier": "^6.0.0",
     "puppeteer-core": "2.0.x",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "swr": "^0.2.0",
     "yargs": "^15.3.1"
   },
   "devDependencies": {
