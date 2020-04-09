@@ -12,7 +12,7 @@ export default ({ zip }) => {
 
   const { date, text, screenshot, hasSlot } = data
   return (
-    <div className="w-full">
+    <div className="w-full website">
       <h2>Costco</h2>
       <Times {...{ date }} />
       <div>{text}</div>

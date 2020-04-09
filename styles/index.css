@@ -3,3 +3,8 @@
 @tailwind components;
 /* purgecss end ignore */
 @tailwind utilities;
+
+.website {
+  flex: 1 1 400px;
+  max-width: 800px;
+}
