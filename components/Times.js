@@ -1,6 +1,5 @@
+import React, { useEffect, useState } from 'react'
 import { timeAgo } from '../util/datetime'
-import { useEffect } from 'react'
-import { useState } from 'react/cjs/react.development'
 
 export default ({ date }) => {
   const [now, setNow] = useState(new Date().toLocaleTimeString())
@@ -8,6 +7,7 @@ export default ({ date }) => {
     const handle = setInterval(() => {
       setNow(new Date().toLocaleTimeString())
     }, 1000)
+    return () => clearInterval(handle)
   }, [])
   return (
     <div>
