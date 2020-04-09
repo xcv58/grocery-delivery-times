@@ -3,6 +3,11 @@
   "github": {
     "enabled": true
   },
+  "build": {
+    "env": {
+      "GA_TRACKING_ID": "@grocery-delivery-times-ga-tracking-id"
+    }
+  },
   "env": {
     "COSTCO_ACCOUNT": "@costco_account",
     "COSTCO_PASSWORD": "@costco_passpord"
