@@ -4,16 +4,20 @@ import { timeAgo } from '../util/datetime'
 import fetcher from '../util/fetcher'
 import Times from './Times'
 
-export default ({ zip }) => {
+const Content = ({ zip }) => {
   const { data, error } = useSWR(() => zip && `/api/costco/${zip}`, fetcher)
 
-  if (error) return <div>{error.message}</div>
+  if (error)
+    return (
+      <div className="p-2 font-bold text-red-500">
+        {error.message || 'Unable to get data, please try again!'}
+      </div>
+    )
   if (!data) return <div>Loading...</div>
 
   const { date, text, screenshot, hasSlot } = data
   return (
-    <div className="w-full website">
-      <h2>Costco</h2>
+    <>
       <Times {...{ date }} />
       <div>{text}</div>
       {screenshot && (
@@ -22,6 +26,13 @@ export default ({ zip }) => {
           alt="costco screenshot"
         />
       )}
-    </div>
+    </>
   )
 }
+
+export default (props) => (
+  <div className="w-full website">
+    <h2 className="text-2xl text-center">Costco</h2>
+    <Content {...props} />
+  </div>
+)

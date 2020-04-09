@@ -3,7 +3,7 @@ const fetcher = async (url) => {
   const data = await res.json()
 
   if (res.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.error)
   }
   return data
 }
