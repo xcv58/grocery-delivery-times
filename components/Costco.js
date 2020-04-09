@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import { timeAgo } from '../util/datetime'
 import fetcher from '../util/fetcher'
+import Times from './Times'
 
 export default ({ zip }) => {
   const { data, error } = useSWR(() => zip && `/api/costco/${zip}`, fetcher)
@@ -11,9 +12,9 @@ export default ({ zip }) => {
 
   const { date, text, screenshot, hasSlot } = data
   return (
-    <div className="w-64">
+    <div className="w-full">
       <h2>Costco</h2>
-      <div>Update {timeAgo.format(new Date(date))}</div>
+      <Times {...{ date }} />
       <div>{text}</div>
       {screenshot && (
         <img

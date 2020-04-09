@@ -1,5 +1,5 @@
 export const COSTCO_DATA = {
-  date: '2020-04-09T05:49:46.816Z',
+  date: '2020-04-09T06:21:46.816Z',
   text:
     'No delivery times available\n\nRight now, all shoppers are busy and working hard to get to every order. Please check back later to see if deliveries are available.',
   zip: '94102',

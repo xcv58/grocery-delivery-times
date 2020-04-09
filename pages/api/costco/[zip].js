@@ -2,7 +2,7 @@ import log from 'loglevel'
 import getBrowser from '../../../util/browser'
 import { isValidZip, isProd } from '../../../util/index'
 import costco from '../../../costco'
-import { COSTCO_DATA } from '../../../util/test_data'
+import { COSTCO_DATA } from '../../../util/fake_data'
 
 export default async (req, res) => {
   log.setLevel('DEBUG')
