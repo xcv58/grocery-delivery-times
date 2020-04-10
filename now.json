@@ -10,6 +10,7 @@
   },
   "env": {
     "COSTCO_ACCOUNT": "@costco_account",
-    "COSTCO_PASSWORD": "@costco_passpord"
+    "COSTCO_PASSWORD": "@costco_passpord",
+    "GITHUB_TOKEN": "@grocery-delivery-times-github-token"
   }
 }
