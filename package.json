@@ -10,7 +10,7 @@
   "author": "xcv58 <i@xcv58.com>",
   "license": "MIT",
   "dependencies": {
-    "@octokit/rest": "^17.2.0",
+    "@octokit/rest": "17.2.0",
     "chrome-aws-lambda": "2.0.2",
     "cron": "1.8.2",
     "dotenv": "8.2.0",
@@ -18,7 +18,7 @@
     "loglevel": "1.6.7",
     "loglevel-message-prefix": "3.0.0",
     "next": "9.3.4",
-    "node-notifier": "6.0.0",
+    "node-notifier": "7.0.0",
     "puppeteer-core": "2.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "2.1.2",
-    "husky": "4.2.3",
+    "husky": "4.2.5",
     "postcss-preset-env": "6.7.0",
     "prettier": "2.0.4",
     "pretty-quick": "2.0.1",
