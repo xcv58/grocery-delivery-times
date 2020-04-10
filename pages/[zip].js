@@ -9,7 +9,7 @@ export default () => {
   const { zip } = router.query
   useGA()
   return (
-    <Websites>
+    <Websites {...{ zip }}>
       <Costco {...{ zip }} />
     </Websites>
   )
