@@ -17,7 +17,7 @@ const Content = ({ zip }) => {
 
   const { date, text, link, screenshot, hasSlot } = data
   let className =
-    'flex justify-center px-2 py-1 text-sm text-white border-4 rounded focus:shadow-outline focus:outline-none hover:bg-red-700 hover:border-red-700 disabled:opacity-75 '
+    'flex justify-center px-2 py-1 text-sm text-white border-4 rounded focus:shadow-outline focus:outline-none hover:bg-red-700 hover:border-red-700 '
   if (hasSlot) {
     className += 'bg-red-500 border-red-500'
   } else {
