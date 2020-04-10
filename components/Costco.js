@@ -1,9 +1,9 @@
 import clsx from 'clsx'
-import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import { timeAgo } from '../util/datetime'
 import fetcher from '../util/fetcher'
 import Times from './Times'
+import SubscribeLink from './SubscribeLink'
 
 const Content = ({ zip }) => {
   const { data, error } = useSWR(() => zip && `/api/costco/${zip}`, fetcher)
@@ -46,9 +46,15 @@ const Content = ({ zip }) => {
 }
 
 export default (props) => {
+  const { zip } = props
   return (
-    <div className="w-full website">
-      <h2 className="text-2xl text-center">Costco</h2>
+    <div className="w-full p-1 m-1 website">
+      <div className="flex items-center justify-center">
+        <h2 className="flex-auto text-2xl text-center">Costco</h2>
+        <div className="relative right-0">
+          <SubscribeLink {...{ zip, website: 'costco' }} />
+        </div>
+      </div>
       <Content {...props} />
     </div>
   )
