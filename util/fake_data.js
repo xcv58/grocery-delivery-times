@@ -2,6 +2,7 @@ export const COSTCO_DATA = {
   date: '2020-04-09T06:21:46.816Z',
   text:
     'No delivery times available\n\nRight now, all shoppers are busy and working hard to get to every order. Please check back later to see if deliveries are available.',
+  link: 'https://www.costco.com/logon-instacart',
   zip: '94102',
   hasSlot: false,
   screenshot:
