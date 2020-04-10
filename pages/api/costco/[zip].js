@@ -3,6 +3,7 @@ import getBrowser from '../../../util/browser'
 import { isValidZip, isProd } from '../../../util/index'
 import costco from '../../../costco'
 import { COSTCO_DATA } from '../../../util/fake_data'
+import updateIssue from '../../../github/updateIssue'
 
 export default async (req, res) => {
   log.setLevel('DEBUG')
@@ -17,15 +18,23 @@ export default async (req, res) => {
     return res.json(COSTCO_DATA)
   }
   const browser = await getBrowser()
-  const { screenshot, text, hasSlot } = await costco(browser, zip, {
+  const data = await costco(browser, zip, {
     saveScreenshot: false,
   })
+  const { screenshot, text, link, hasSlot } = data
   await browser.close()
+  if (hasSlot) {
+    await Promise.all([
+      updateIssue({ zip, website: 'costco' }, data),
+      updateIssue({ zip }, data),
+    ])
+  }
   res.statusCode = 200
   res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate')
   res.json({
     date: new Date(),
     text,
+    link,
     zip,
     hasSlot,
     screenshot,

@@ -111,7 +111,7 @@ async function costco(
   } else {
     log.info(`Costco: find no delivery time for ${zip}`)
   }
-  return { hasSlot, text, screenshot }
+  return { hasSlot, text, screenshot, link: COSTCO_LINK }
 }
 
 module.exports = costco
