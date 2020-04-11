@@ -31,7 +31,7 @@ export default async (req, res) => {
     ])
   }
   res.statusCode = 200
-  res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate')
+  res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate')
   res.json({
     date: new Date(),
     text,
