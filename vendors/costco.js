@@ -42,13 +42,13 @@ export default async (
   while (true) {
     try {
       await click(page, $changeZipButton)
+      log.debug('wait for 1 second')
+      await page.waitFor(1000)
       const postalCodeInput = await page.$($postalCodeInput)
       const buttons = await page.$$($postalCodeSubmit)
       if (postalCodeInput && buttons && buttons.length === 3) {
         break
       }
-      log.debug('wait for 1 second')
-      await page.waitFor(1000)
     } catch (e) {
       log.error(e)
     }
@@ -72,6 +72,24 @@ export default async (
     }
   }
 
+  const zipButton = await page.$($changeZipButton)
+  if (zipButton) {
+    const text = await zipButton.evaluate((node) => node.innerText)
+    if (text !== zip) {
+      await page.close()
+      return {
+        hasSlot: false,
+        text: `Costco doesn't support this zip: '${zip}'.`,
+        link: COSTCO_LINK,
+      }
+    }
+  }
+
+  // Dismiss the existing order
+  const toast = await page.$('#toast-container')
+  if (toast) {
+    await toast.evaluate((node) => (node.style.display = 'none'))
+  }
   await click(page, $seeTimes)
 
   const path = `Costco - ${zip} - ${new Date().toISOString()}.png`
