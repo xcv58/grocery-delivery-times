@@ -33,6 +33,7 @@ export default async ({ zip, website = ALL }, data) => {
 
 ${text}
 
+on ${new Date().toISOString()}
 The URL: ${link} `,
   })
 }

@@ -1,9 +1,9 @@
 import log from 'loglevel'
 import getBrowser from '../../../util/browser'
-import { isValidZip, isProd } from '../../../util/index'
-import costco from '../../../vendors/costco'
-import { COSTCO_DATA } from '../../../util/fake_data'
+import { isValidZip } from '../../../util/index'
+import primenow from '../../../vendors/primenow'
 import updateIssue from '../../../github/updateIssue'
+import { PRIME_NOW } from '../../../util/websites'
 
 export default async (req, res) => {
   log.setLevel('DEBUG')
@@ -14,18 +14,15 @@ export default async (req, res) => {
       error: `Invalid zip code: '${zip}'`,
     })
   }
-  if (!isProd()) {
-    return res.json(COSTCO_DATA)
-  }
   const browser = await getBrowser()
-  const data = await costco(browser, zip, {
+  const data = await primenow(browser, zip, {
     saveScreenshot: false,
   })
   const { screenshot, text, link, hasSlot } = data
   await browser.close()
   if (hasSlot) {
     await Promise.all([
-      updateIssue({ zip, website: 'costco' }, data),
+      updateIssue({ zip, website: PRIME_NOW }, data),
       updateIssue({ zip }, data),
     ])
   }

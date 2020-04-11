@@ -1,16 +1,16 @@
 import { useRouter } from 'next/router'
 import ZipInput from '../components/ZipInput'
-import Costco from '../components/Costco'
 import Websites from '../components/Websites'
+import Website from '../components/Website'
 import useGA from '../components/useGA'
+import { ALL_WEBSITES } from '../util/websites'
 
 export default () => {
+  useGA()
   const router = useRouter()
   const { zip } = router.query
-  useGA()
-  return (
-    <Websites {...{ zip }}>
-      <Costco {...{ zip }} />
-    </Websites>
-  )
+  const sites = ALL_WEBSITES.map((website) => (
+    <Website key={website} {...{ website, zip }} />
+  ))
+  return <Websites {...{ zip }}>{sites}</Websites>
 }
