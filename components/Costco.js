@@ -14,7 +14,26 @@ const Content = ({ zip }) => {
         {error.message || 'Unable to get data, please try again!'}
       </div>
     )
-  if (!data) return <div>Loading...</div>
+  if (!data)
+    return (
+      <div className="w-full p-1 m-1 website flex flex-col items-center">
+        <div className="la-ball-spin-clockwise la-dark la-3x">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div>
+          <h3 className="text-1xl p-8">
+            checking time slots for Costco, will take up to 60 seconds...
+          </h3>
+        </div>
+      </div>
+    )
 
   const { date, text, link, screenshot, hasSlot } = data
 
