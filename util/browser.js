@@ -38,6 +38,10 @@ export default async () => {
       args: chrome.args,
       executablePath: await chrome.executablePath,
       headless: chrome.headless,
+      defaultViewport: {
+        width: 1200,
+        heigth: 800,
+      },
     })
     return browser
   }
