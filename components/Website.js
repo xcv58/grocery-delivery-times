@@ -4,6 +4,11 @@ import { timeAgo } from '../util/datetime'
 import fetcher from '../util/fetcher'
 import Times from './Times'
 import SubscribeLink from './SubscribeLink'
+import { PRIME_NOW } from '../util/websites'
+
+const SITE_NAME_MAP = {
+  [PRIME_NOW]: 'Prime Now',
+}
 
 const Content = ({ website, zip }) => {
   const { data, error } = useSWR(() => zip && `/api/${website}/${zip}`, fetcher)
@@ -50,7 +55,9 @@ export default (props) => {
   return (
     <div className="w-full p-1 m-1 website">
       <div className="flex items-center justify-center">
-        <h2 className="flex-auto text-2xl text-center capitalize">{website}</h2>
+        <h2 className="flex-auto text-2xl text-center capitalize">
+          {SITE_NAME_MAP[website] || website}
+        </h2>
         <div className="relative right-0">
           <SubscribeLink {...{ zip, website }} />
         </div>
