@@ -1,6 +1,7 @@
 import log from 'loglevel'
 import getBrowser from '../../../util/browser'
-import { isValidZip } from '../../../util/index'
+import { isValidZip, isProd } from '../../../util/index'
+import { FAKE_DATA } from '../../../util/fake_data'
 import primenow from '../../../vendors/primenow'
 import updateIssue from '../../../github/updateIssue'
 import { PRIME_NOW } from '../../../util/websites'
@@ -13,6 +14,9 @@ export default async (req, res) => {
     return res.status(400).json({
       error: `Invalid zip code: '${zip}'`,
     })
+  }
+  if (!isProd()) {
+    return res.json(FAKE_DATA)
   }
   const browser = await getBrowser()
   const data = await primenow(browser, zip, {

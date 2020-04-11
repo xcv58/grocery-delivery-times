@@ -2,7 +2,7 @@ import log from 'loglevel'
 import getBrowser from '../../../util/browser'
 import { isValidZip, isProd } from '../../../util/index'
 import costco from '../../../vendors/costco'
-import { COSTCO_DATA } from '../../../util/fake_data'
+import { FAKE_DATA } from '../../../util/fake_data'
 import updateIssue from '../../../github/updateIssue'
 
 export default async (req, res) => {
@@ -15,7 +15,7 @@ export default async (req, res) => {
     })
   }
   if (!isProd()) {
-    return res.json(COSTCO_DATA)
+    return res.json(FAKE_DATA)
   }
   const browser = await getBrowser()
   const data = await costco(browser, zip, {
