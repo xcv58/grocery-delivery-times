@@ -40,7 +40,7 @@ export default async () => {
       headless: chrome.headless,
       defaultViewport: {
         width: 1200,
-        heigth: 800,
+        height: 800,
       },
     })
     return browser
