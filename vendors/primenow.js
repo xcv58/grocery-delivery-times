@@ -8,6 +8,7 @@ const LINK = 'https://primenow.amazon.com/onboard'
 const hasTimeSlot = (text) => !text.includes('No delivery times available')
 
 const $noSlotBanner = '#nawBannerContainer,ul>li>div>div>img[sizes="100vw"]'
+const $notAvailable = '#no-availability-message'
 
 export default async (browser, zip, { saveScreenshot = false }) => {
   if (!browser || !zip) {
@@ -22,11 +23,21 @@ export default async (browser, zip, { saveScreenshot = false }) => {
   log.debug('Open primenow page')
   await page.goto(LINK)
   await fillForm(page, '#lsPostalCode', zip)
-
-  await Promise.all([
-    page.waitForNavigation(),
-    click(page, 'input[type="submit"].a-button-input'),
-  ])
+  await click(page, 'input[type="submit"].a-button-input')
+  log.debug('wait for 2 seconds')
+  await page.waitFor(2000)
+  log.debug('check not available element')
+  const notAvailable = await page.$($notAvailable)
+  if (notAvailable) {
+    log.debug('find not available element')
+    const text = await notAvailable.evaluate((node) => node.innerText)
+    await page.close()
+    return {
+      hasSlot: false,
+      link: LINK,
+      text,
+    }
+  }
 
   try {
     log.debug('Wait for selector:', $noSlotBanner)
