@@ -1,5 +1,6 @@
 import octokit from './octokit'
-import { owner, repo, ALL } from './data'
+import { owner, repo } from './data'
+import { ALL } from '../util/websites'
 
 export default async ({ zip, website = ALL }) =>
   await octokit.issues.create({

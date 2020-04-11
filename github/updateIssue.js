@@ -1,7 +1,8 @@
 import log from 'loglevel'
 import octokit from './octokit'
-import { owner, repo, ALL } from './data'
+import { owner, repo } from './data'
 import { getOrCreateIssue } from './getOrCreateIssue'
+import { ALL } from '../util/websites'
 
 export default async ({ zip, website = ALL }, data) => {
   log.setLevel('DEBUG')

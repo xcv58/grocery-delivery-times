@@ -1,6 +1,7 @@
 import searchIssue from './searchIssue'
 import createIssue from './createIssue'
 import { isValidZip } from '../util'
+import { ALL_WEBSITES, isValidWebsite } from '../util/websites'
 
 export const getOrCreateIssue = async ({ zip, website }) => {
   const data = await searchIssue({ zip, website })
@@ -15,6 +16,11 @@ export default async (req, res) => {
   if (!isValidZip(zip)) {
     return res.status(400).json({
       error: `Invalid zip code: '${zip}'`,
+    })
+  }
+  if (!isValidWebsite(website)) {
+    return res.status(400).json({
+      error: `Invalid website: '${website}'`,
     })
   }
   const data = await getOrCreateIssue({ zip, website })
