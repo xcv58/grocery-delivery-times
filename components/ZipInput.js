@@ -18,6 +18,9 @@ export default ({ zip = '' }) => {
       disabled={!value}
       onSubmit={(e) => {
         e.preventDefault()
+        // if (value === zip) {
+
+        // }
         if (value) {
           Router.push('/[zip]', `/${value}`)
         } else {
@@ -46,6 +49,13 @@ export default ({ zip = '' }) => {
           type="submit"
           value="Submit"
           disabled={!value}
+          className="flex-shrink-0 px-2 py-1 text-sm text-white bg-blue-500 border-4 border-blue-500 rounded disabled:cursor-not-allowed focus:shadow-outline focus:outline-none hover:bg-blue-700 hover:border-blue-700 disabled:opacity-75"
+        />
+        <input
+          type="submit"
+          value="Refresh"
+          disabled={!value}
+          title="Will update in 10 minites"
           className="flex-shrink-0 px-2 py-1 text-sm text-white bg-blue-500 border-4 border-blue-500 rounded disabled:cursor-not-allowed focus:shadow-outline focus:outline-none hover:bg-blue-700 hover:border-blue-700 disabled:opacity-75"
         />
       </div>

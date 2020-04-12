@@ -11,7 +11,7 @@ export default ({ date }) => {
   }, [])
   return (
     <div>
-      {now}, update {timeAgo.format(new Date(date))}
+      {now}, update {timeAgo.format(new Date(date))} 123
     </div>
   )
 }
