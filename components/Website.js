@@ -76,11 +76,11 @@ export default (props) => {
   const { zip, website } = props
   return (
     <div className="w-full p-1 m-1 website">
-      <div className="flex items-center justify-center">
-        <h2 className="flex-auto text-2xl text-center capitalize">
+      <div className="relative flex items-center justify-center w-full h-12">
+        <h2 className="w-full text-2xl text-center capitalize">
           {SITE_NAME_MAP[website] || website}
         </h2>
-        <div className="relative right-0">
+        <div className="absolute right-0 inline-block">
           <SubscribeLink {...{ zip, website }} />
         </div>
       </div>
