@@ -2,7 +2,10 @@ export const ALL = 'all'
 export const COSTCO = 'costco'
 export const PRIME_NOW = 'primenow'
 
-export const ALL_WEBSITES = [COSTCO, PRIME_NOW]
+export const ALL_WEBSITES = [
+  COSTCO,
+  // PRIME_NOW
+]
 
 export const isValidWebsite = (website) => {
   if (!website) {
