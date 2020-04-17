@@ -5,8 +5,8 @@ export const WEEE = 'weee'
 // https://www.sayweee.com/zh
 
 export const ALL_WEBSITES = [
-  COSTCO,
   WEEE,
+  COSTCO,
   // PRIME_NOW
 ]
 
