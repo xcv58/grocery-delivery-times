@@ -9,7 +9,7 @@ export default ({ children, zip }) => {
             <p className="p-2 m-2">
               Tracking grocery delivery websites for zip: {zip}.
             </p>
-            <SubscribeLink {...{ zip }} />
+            {/* <SubscribeLink {...{ zip }} /> */}
           </div>
           <hr className="w-full my-2 border border-gray-300" />
         </>
