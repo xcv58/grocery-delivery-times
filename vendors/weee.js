@@ -66,9 +66,5 @@ export default async (browser, zip, { saveScreenshot = false }) => {
   }
 
   await page.close()
-  return {
-    hasSlot: false,
-    text: 'Time out on server side',
-    link: LINK,
-  }
+  throw Error('Timeout on server side')
 }
