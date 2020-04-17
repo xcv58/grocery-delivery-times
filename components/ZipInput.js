@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Router from 'next/router'
 
 export default ({ zip = '' }) => {
   const [value, setValue] = useState(zip)
   const [typed, setTyped] = useState(false)
+  const inputRef = useRef(null)
   useEffect(() => {
     if (typed) {
       return
@@ -23,6 +24,7 @@ export default ({ zip = '' }) => {
         } else {
           Router.push('/')
         }
+        inputRef.current.blur()
       }}
     >
       <div className="flex items-center max-w-sm py-2 mx-auto border-b-2 border-gray-400 focus-within:border-blue-500 hover:border-blue-300">
@@ -30,6 +32,7 @@ export default ({ zip = '' }) => {
           className="w-full px-2 py-1 mr-3 leading-tight text-gray-700 bg-transparent border-none appearance-none focus:outline-none"
           placeholder="Zip code"
           id="zip"
+          ref={inputRef}
           value={value}
           onChange={(e) => {
             setValue(e.target.value)
