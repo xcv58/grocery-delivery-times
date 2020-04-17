@@ -11,7 +11,10 @@ const SITE_NAME_MAP = {
 }
 
 const Content = ({ website, zip }) => {
-  const { data, error } = useSWR(() => zip && `/api/${website}/${zip}`, fetcher)
+  const { data, error, isValidating } = useSWR(
+    () => zip && `/api/${website}/${zip}`,
+    fetcher
+  )
 
   if (error)
     return (
@@ -57,7 +60,7 @@ const Content = ({ website, zip }) => {
       >
         Shop Now
       </a>
-      <Times {...{ date }} />
+      <Times {...{ date, isValidating }} />
       <div>{text}</div>
       {screenshot && (
         <img
