@@ -24,7 +24,7 @@ const Content = ({ website, zip }) => {
     )
   if (!data)
     return (
-      <div className="w-full p-1 m-1 website flex flex-col items-center">
+      <div className="flex flex-col items-center w-full p-1 m-1 website">
         <div className="la-ball-spin-clockwise la-dark la-3x">
           <div></div>
           <div></div>
@@ -36,8 +36,8 @@ const Content = ({ website, zip }) => {
           <div></div>
         </div>
         <div>
-          <h3 className="text-1xl p-8">
-            checking time slots for {website}, will take up to 60 seconds...
+          <h3 className="p-8 text-1xl">
+            Checking time slots for {website}, may take up to 60 seconds...
           </h3>
         </div>
       </div>
