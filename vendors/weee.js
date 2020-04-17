@@ -5,6 +5,8 @@ import { getNewPage, click, fillForm } from '../util/browser'
 
 const LINK = 'https://www.sayweee.com/en'
 
+const $closeModalButton = '.weee-portal-zipcode-delivery-modal button'
+
 export default async (browser, zip, { saveScreenshot = false }) => {
   if (!browser || !zip) {
     log.error('Invalid weee calls:', { browser, zip })
@@ -32,6 +34,14 @@ export default async (browser, zip, { saveScreenshot = false }) => {
     }
   }
 
+  while (true) {
+    const tmp = await page.$($closeModalButton)
+    if (tmp) {
+      break
+    }
+    log.debug('wait for 1 seconds')
+    await page.waitFor(1000)
+  }
   await click(page, '.weee-portal-zipcode-delivery-modal button')
   log.debug('wait for 1 seconds')
   await page.waitFor(1000)
@@ -48,7 +58,9 @@ export default async (browser, zip, { saveScreenshot = false }) => {
           type: 'png',
           encoding: 'base64',
         })
-        const hasSlot = Boolean(await modal.$('.date-cell.available'))
+        const allCell = await modal.$$('.date-cell')
+        const unavailableCell = await modal.$$('.date-cell.unavailable')
+        const hasSlot = allCell.length - unavailableCell.length > 0
         return {
           hasSlot,
           text: hasSlot
