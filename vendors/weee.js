@@ -21,8 +21,8 @@ export default async (browser, zip, { saveScreenshot = false }) => {
   await page.goto(LINK)
   await fillForm(page, '#zip_code', zip)
   await click(page, 'button#save-btn')
-  log.debug('wait for 1 seconds')
-  await page.waitFor(1000)
+  log.debug('wait for 2 seconds')
+  await page.waitFor(2000)
   if (await page.$('#subscribe-email')) {
     const warning = await page.$('form > div.zipcode-warning')
     const text = await warning.evaluate((node) => node.innerText)
@@ -55,7 +55,8 @@ export default async (browser, zip, { saveScreenshot = false }) => {
       const modal = await page.$($modal)
       if (modal) {
         const screenshot = await modal.screenshot({
-          type: 'png',
+          type: 'jpeg',
+          quality: 64,
           encoding: 'base64',
         })
         const allCell = await modal.$$('.date-cell')
