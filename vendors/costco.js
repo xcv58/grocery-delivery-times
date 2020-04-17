@@ -15,6 +15,10 @@ const $postalCodeSubmit = '.addressPickerModal div button'
 
 const hasTimeSlot = (text) => !text.includes('No delivery times available')
 
+const isNearZip = (zip1, zip2) => {
+  return Math.abs(Number(zip1) - Number(zip2)) < 10
+}
+
 export default async (
   browser,
   zip,
@@ -75,7 +79,7 @@ export default async (
   const zipButton = await page.$($changeZipButton)
   if (zipButton) {
     const text = await zipButton.evaluate((node) => node.innerText)
-    if (text !== zip) {
+    if (text !== zip && !isNearZip(94103, zip)) {
       await page.close()
       return {
         hasSlot: false,
