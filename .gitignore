@@ -7,7 +7,6 @@ secrets.*.js
 coverage
 yarn-error.log
 .env
-*.png
 samples
 
 .now
