@@ -19,7 +19,7 @@
     "javascript-time-ago": "2.0.7",
     "loglevel": "1.6.8",
     "loglevel-message-prefix": "3.0.0",
-    "next": "9.4.0",
+    "next": "9.4.4",
     "node-notifier": "7.0.0",
     "puppeteer-core": "2.0.0",
     "react": "16.13.1",
