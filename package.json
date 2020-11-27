@@ -22,8 +22,8 @@
     "next": "9.4.0",
     "node-notifier": "7.0.0",
     "puppeteer-core": "2.0.0",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
+    "react": "16.14.0",
+    "react-dom": "16.14.0",
     "react-ga": "2.7.0",
     "swr": "0.2.0",
     "yargs": "15.3.1"
