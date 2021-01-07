@@ -20,7 +20,7 @@
     "loglevel": "1.6.8",
     "loglevel-message-prefix": "3.0.0",
     "next": "9.4.0",
-    "node-notifier": "7.0.0",
+    "node-notifier": "8.0.1",
     "puppeteer-core": "2.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
