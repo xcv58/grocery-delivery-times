@@ -16,7 +16,7 @@
     "clsx": "1.1.0",
     "cron": "1.8.2",
     "dotenv": "8.2.0",
-    "javascript-time-ago": "2.0.7",
+    "javascript-time-ago": "2.3.4",
     "loglevel": "1.6.8",
     "loglevel-message-prefix": "3.0.0",
     "next": "9.4.0",
