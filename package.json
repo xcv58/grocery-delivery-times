@@ -10,7 +10,7 @@
   "author": "xcv58 <i@xcv58.com>",
   "license": "MIT",
   "dependencies": {
-    "@octokit/rest": "17.3.0",
+    "@octokit/rest": "18.1.0",
     "@primer/octicons-react": "9.6.0",
     "chrome-aws-lambda": "2.0.2",
     "clsx": "1.1.0",
