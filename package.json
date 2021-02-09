@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "2.1.2",
-    "husky": "4.2.5",
+    "husky": "5.0.9",
     "postcss-preset-env": "6.7.0",
     "prettier": "2.0.4",
     "pretty-quick": "2.0.1",
